@@ -19,13 +19,20 @@ function App() {
     .catch(error => console.log(error.message))
   }, [])
 
-  const addListing = newListing => setListings(previousListings => [...previousListings, newListing])
+  const addListing = newListing => 
+    setListings(previousListings => 
+      [...previousListings, newListing])
+
+  const updateListing = updatedListing => 
+    setListings(previousListings => 
+      previousListings.map(listing => 
+        listing.id === updatedListing.id ? updatedListing : listing))
 
   return (
     <div className="app">
       <Header />
       <ListingForm addListing={addListing} />
-      <ListingsContainer listings={listings} />
+      <ListingsContainer listings={listings} updateListing={updateListing}/>
     </div>
   );
 }

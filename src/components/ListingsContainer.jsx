@@ -1,12 +1,15 @@
 import React, {useState} from "react";
 import ListingCard from "./ListingCard";
 
-function ListingsContainer({listings}) {
+function ListingsContainer({listings, updateListing}) {
   return (
     <main>
       <ul className="cards">  
         {listings.map(listing => 
-          <ListingCard key={listing.id} {...listing}/>
+          <ListingCard 
+            key={listing.id} {...listing}
+            updateListing={updateListing}
+          />
         )}
       </ul>
     </main>
