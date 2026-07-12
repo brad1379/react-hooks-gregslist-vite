@@ -5,6 +5,9 @@ import ListingsContainer from "./ListingsContainer";
 
 function App() {
   const [listings, setListings] = useState([]);
+  const [search, setSearch] = useState("");
+
+
   useEffect(() => {
     fetch("http://localhost:6001/listings")
     .then(response => {
@@ -21,24 +24,26 @@ function App() {
 
   const addListing = newListing => 
     setListings(previousListings => 
-      [...previousListings, newListing])
+      [...previousListings, newListing]);
 
   const updateListing = updatedListing => 
     setListings(previousListings => 
       previousListings.map(listing => 
-        listing.id === updatedListing.id ? updatedListing : listing))
+        listing.id === updatedListing.id ? updatedListing : listing));
 
   const deleteListing = deletedListing =>
     setListings(previousListings => 
-      previousListings.filter(listing => listing.id !== deletedListing.id)
-    )
+      previousListings.filter(listing => listing.id !== deletedListing.id));
+
+  const displayedListings = listings.filter((listing) => 
+    listing.description.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <div className="app">
-      <Header />
+      <Header search={search} onSearch={setSearch}/>
       <ListingForm addListing={addListing} />
       <ListingsContainer 
-        listings={listings} 
+        listings={displayedListings} 
         updateListing={updateListing} 
         deleteListing={deleteListing}
       />
