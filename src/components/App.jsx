@@ -28,11 +28,20 @@ function App() {
       previousListings.map(listing => 
         listing.id === updatedListing.id ? updatedListing : listing))
 
+  const deleteListing = deletedListing =>
+    setListings(previousListings => 
+      previousListings.filter(listing => listing.id !== deletedListing.id)
+    )
+
   return (
     <div className="app">
       <Header />
       <ListingForm addListing={addListing} />
-      <ListingsContainer listings={listings} updateListing={updateListing}/>
+      <ListingsContainer 
+        listings={listings} 
+        updateListing={updateListing} 
+        deleteListing={deleteListing}
+      />
     </div>
   );
 }
